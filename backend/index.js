@@ -8,8 +8,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 const FLOWISE_API_URL = process.env.FLOWISE_API_URL || "";
+const FRONTEND_URL = process.env.FRONTEND_URL || "*";
 
-app.use(cors());
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => {

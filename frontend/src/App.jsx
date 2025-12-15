@@ -15,6 +15,8 @@ const skills = [
 ];
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL || "";
+
   const [projects, setProjects] = useState([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [projectError, setProjectError] = useState("");
@@ -34,7 +36,7 @@ function App() {
       setLoadingProjects(true);
       setProjectError("");
       try {
-        const res = await axios.get("/api/projects");
+        const res = await axios.get(`${API_URL}/api/projects`);
         setProjects(res.data || []);
       } catch (error) {
         console.error(error);
@@ -54,7 +56,7 @@ function App() {
     setMessage("");
     setSending(true);
     try {
-      const res = await axios.post("/api/chat", {
+      const res = await axios.post(`${API_URL}/api/chat`, {
         message: outgoing.text,
         sessionId,
       });
